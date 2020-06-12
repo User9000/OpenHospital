@@ -1,2 +1,0 @@
-# OpenHospital
-OpenHospital (SPRING BOOT)

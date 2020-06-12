@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add an appointment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body class="bg-light">
+
+<div class="container">
+<div align="center">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}">Home</a>
+        <a class="navbar-brand" th:href="@{/addPatient}">Add Patient</a>
+    </nav>
+    <form action="#" th:action="@{/addAppointment}" th:object="${AppointmentItem}" method="post">
+
+        <div class="form-group">
+            <label>ID</label>
+            <input type="text"   th:field="*{id}" disabled="true" class="form-control" id="id">
+        </div>
+        <div class="form-group">
+            <label>Room</label>
+            <input type="text" th:field="*{room}" class="form-control" id="room" placeholder="room number">
+        </div>
+
+
+        <div class="form-group">
+            <label>Doctor</label>
+            <select class="form-control" id="doctor">
+                <option>1</option>
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Patient</label>
+            <select class="form-control" id="patient">
+                <option>1</option>
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Details</label>
+            <textarea class="form-control" th:field="*{details}" id="details" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Prescription</label>
+            <textarea class="form-control" th:field="*{prescription}" id="prescription" rows="3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Symptoms</label>
+            <textarea class="form-control" th:field="*{symptoms}" id="symptoms" rows="3"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+</div>
+
+</div>
+</body>
+</html>
