@@ -17,9 +17,9 @@ public class AppointmentItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @OneToOne
+    @OneToOne(    orphanRemoval = true, cascade = CascadeType.ALL)
     private DoctorItem doctor;
-    @OneToOne
+    @OneToOne (orphanRemoval = true, cascade = CascadeType.ALL)
     private PatientItem patient;
 
     private LocalDate date;

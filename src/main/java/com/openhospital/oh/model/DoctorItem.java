@@ -27,11 +27,11 @@ public class DoctorItem {
     private String practiceLicenseExp;
     private LocalDate date;
 
-    @ManyToMany
+    @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private List<AppointmentItem> appointments;
 
     //private PatientItem patient;
-    @OneToMany(mappedBy = "doctor")
+    @OneToMany(mappedBy = "doctor", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PatientItem> patient;
 
     public DoctorItem(){

@@ -3,6 +3,7 @@ package com.openhospital.oh.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -38,10 +39,12 @@ public class PatientItem {
     private String workplace;
     private LocalDate date;
 
-    @ManyToMany
+    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private List<AppointmentItem> appointments;
 
-    @ManyToOne
+
+    @ManyToOne( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ToString.Exclude
     private DoctorItem doctor;
 
     public PatientItem() {
@@ -51,12 +54,14 @@ public class PatientItem {
     public PatientItem( String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
+        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
     }
 
     public PatientItem( String id,  String name, String lastname) {
         this.setId(id);
         this.setLastname(lastname);
         this.setName(name);
+        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
     }
 
 
@@ -76,7 +81,8 @@ public class PatientItem {
         this.workplace = workplace;
         this.date = date;
         this.appointments = appointments;
-        this.doctor = doctor;
+
+        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
     }
 
     public PatientItem(String id, String name, String lastname, String gender, String address, String zipcode, String city, String state, String country, String phone, String email, String age, String weight, String temperature, String height, String DOB, String workplace, LocalDate date, List<AppointmentItem> appointments, DoctorItem doctor) {
@@ -99,6 +105,7 @@ public class PatientItem {
         this.workplace = workplace;
         this.date = date;
         this.appointments = appointments;
-        this.doctor = doctor;
+        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
+
     }
 }

@@ -40,9 +40,10 @@ public class OpenHospitalController {
     }
 
     @GetMapping("/patients")
-    public String patientsView(@RequestParam(required = false, defaultValue = "-1")                                      int id, Model model) {
-        model.addAttribute("patient", hospitalService.getAllPatients());
+    public String patientsView(@RequestParam(required = false, defaultValue = "-1") int id, Model model) {
+        model.addAttribute("patients", hospitalService.getAllPatients());
         model.addAttribute("doctors", hospitalService.getAllDoctors());
+
         return "patients";
     }
 
@@ -50,7 +51,7 @@ public class OpenHospitalController {
 
         @GetMapping("/addDoctor")
         public String addEditDoctor(@RequestParam(required = false, defaultValue = "-1") String id, Model model){
-            log.info("Adding a doctor");
+            //log.info("Adding a doctor");
             log.info("This is the id passed {}", id);
 
             DoctorItem doctor = hospitalService.getDoctor(id);
@@ -83,37 +84,30 @@ public class OpenHospitalController {
     @GetMapping("/addPatient")
     public String addEditPatient(@RequestParam(required = false, defaultValue = "-1") String id, Model model){
         log.info("Adding patient");
-
         PatientItem patient = hospitalService.getPatientById(id);
-
         if(patient == null) {
-            patient = new PatientItem("", "", "");
+            patient = new PatientItem();
         }
-        model.addAttribute("doctors", hospitalService.getAllDoctors());
+         model.addAttribute("doctors", hospitalService.getAllDoctors());
         model.addAttribute("PatientItem", patient);
         return "add_patient";
     }
 
     @PostMapping("/addPatient")
-    public String processPatient(@RequestParam(value = "doctor_id", required = false, defaultValue ="null" ) String doctor_id, @ModelAttribute("PatientItem") PatientItem patient){
+    public String processPatient( @ModelAttribute("PatientItem") PatientItem patient){
 
         log.info("add_patient ={}", patient);
-        log.info("doctor_id = {}", doctor_id);
-
+        //log.info("doctor_id = {}", doctor_id);
         if (patient.getId() == "0") {
-            if(doctor_id != "null"){
-
-                patient.setDoctor(hospitalService.getDoctor(doctor_id));
-            }
             hospitalService.addPatient(patient);
         }
         else{
-            if(doctor_id != "null"){
-                patient.setDoctor(hospitalService.getDoctor(doctor_id));
-            }
+
+              // patient.setDoctor(hospitalService.getDoctor(doctor_id));
+                log.info("Setting new doctor to patient = {}", patient);
+
             hospitalService.updatePatient(patient);
         }
-
         return  "redirect:/" + "patients";
     }
 

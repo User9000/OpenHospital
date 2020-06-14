@@ -28,9 +28,10 @@
         <th>Email</th>
         <th>Phone</th>
         <th>Doctor</th>
+
         <th>Edt</th>
     </tr>
-    <tr th:each="patient: ${patient}">
+    <tr th:each="patient: ${patients}">
         <td th:text="${patient.id}" />
         <td th:text="${patient.name}" />
         <td th:text="${patient.lastname}" />
@@ -40,7 +41,8 @@
         <td th:text="${patient.email}" />
         <td th:text="${patient.phone}" />
 
-        <td th:text="${patient.doctor?.name}" />
+        <td th:text="${patient.doctor == null ? '' : patient.doctor.name}"></td>
+
         <td><a th:href="@{/addPatient(id=${patient.id})}">EDIT</a></td>
     </tr>
 </table>

@@ -26,25 +26,27 @@ public class OpenHospitalService implements OpenHospitalServiceInterface {
 
     @Override
     public void populate(){
-        this.doctorRepository.save(new DoctorItem("John","Wong","686565253"));
-        this.patientRepository.save(new PatientItem("John","Smith","68659563"));
-        this.doctorRepository.save(new DoctorItem("John","Wong","686565253"));
-        this.patientRepository.save(new PatientItem("John","Smith","68659563"));
-        this.doctorRepository.save(new DoctorItem("John","Wong","686565253"));
-        this.patientRepository.save(new PatientItem("John","Smith","68659563"));
-        this.doctorRepository.save(new DoctorItem("John","Wong","686565253"));
-        this.patientRepository.save(new PatientItem("John","Smith","68659563"));
-        this.appointmentRepository.save(new AppointmentItem("500"));
-        this.appointmentRepository.save(new AppointmentItem("501"));
+        patientRepository.save(new PatientItem("John","Smith","68659563"));
+
+        doctorRepository.save(new DoctorItem("John","Wong","686565253"));
+        patientRepository.save(new PatientItem("John","Smith","68659563"));
+        doctorRepository.save(new DoctorItem("John","Wong","686565253"));
+        patientRepository.save(new PatientItem("John","Smith","68659563"));
+        doctorRepository.save(new DoctorItem("John","Wong","686565253"));
+        patientRepository.save(new PatientItem("John","Smith","68659563"));
+        doctorRepository.save(new DoctorItem("John","Wong","686565253"));
+        patientRepository.save(new PatientItem("John","Smith","68659563"));
+        appointmentRepository.save(new AppointmentItem("500"));
+        appointmentRepository.save(new AppointmentItem("501"));
 
     }
     // == public methods
     public void addPatient(@NonNull PatientItem patient){
-            this.patientRepository.save(patient);
+            patientRepository.save(patient);
     }
 
     public void addDoctor(@NonNull DoctorItem doctor){
-            this.doctorRepository.save(doctor);
+            doctorRepository.save(doctor);
     }
 
     public void addAppointment(@NonNull AppointmentItem appointment){
