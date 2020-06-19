@@ -20,7 +20,7 @@
 
         <div class="form-group">
             <label>ID</label>
-            <input type="text"   th:field="*{id}" disabled="true" class="form-control" id="id">
+            <input type="text"   th:field="*{id}" readonly="true"  name="id"  class="form-control" id="id">
         </div>
         <div class="form-group">
             <label>Room</label>
@@ -28,21 +28,21 @@
         </div>
 
 
-        <div class="form-group">
-            <label>Doctor</label>
-            <select class="form-control" id="doctor">
-                <option>1</option>
 
+        <div class="form-group">
+            <label>Select Doctor</label>
+            <select class="form-control" th:field="*{doctor}"  id="doctor_id">
+                <option th:each="doctor : ${doctors}"  th:value="${doctor.id}"  name="doctor_id" th:text="${doctor.name}" />
             </select>
         </div>
 
         <div class="form-group">
-            <label>Patient</label>
-            <select class="form-control" id="patient">
-                <option>1</option>
-
+            <label>Select Patient</label>
+            <select class="form-control" th:field="*{patient}"  id="patient_id">
+                <option th:each="patient : ${patients}"  th:value="${patient.id}"  name="doctor_id" th:text="${patient.name}" />
             </select>
         </div>
+
 
         <div class="form-group">
             <label>Details</label>

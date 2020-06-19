@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
+
+import javax.persistence.ManyToMany;
 import java.time.LocalDate;
 @Slf4j
 @Controller
 public class OpenHospitalController {
 
     private final OpenHospitalService hospitalService;
-
     @Autowired
     public OpenHospitalController(OpenHospitalService hospitalService) {
         this.hospitalService  = hospitalService;
@@ -35,7 +36,7 @@ public class OpenHospitalController {
     @GetMapping("/doctors")
     public String doctorsView(@RequestParam(required = false, defaultValue = "-1")
                                           int id, Model model) {
-        model.addAttribute("doctor", hospitalService.getAllDoctors());
+        model.addAttribute("doctors", hospitalService.getAllDoctors());
         return "doctors";
     }
 
@@ -46,9 +47,6 @@ public class OpenHospitalController {
 
         return "patients";
     }
-
-
-
         @GetMapping("/addDoctor")
         public String addEditDoctor(@RequestParam(required = false, defaultValue = "-1") String id, Model model){
             //log.info("Adding a doctor");
@@ -102,34 +100,56 @@ public class OpenHospitalController {
             hospitalService.addPatient(patient);
         }
         else{
-
               // patient.setDoctor(hospitalService.getDoctor(doctor_id));
                 log.info("Setting new doctor to patient = {}", patient);
-
             hospitalService.updatePatient(patient);
         }
         return  "redirect:/" + "patients";
     }
 
     @GetMapping("/addAppointment")
-    public String addEditAppointment(@RequestParam(required = false, defaultValue = "-1") String id, Model model){
+    public String addEditAppointment(@RequestParam(required = false, defaultValue ="-1" ) Long id, Model model){
+
         log.info("GET add appointment");
-        //AppointmentItem appointment = null;
         AppointmentItem appointment  = hospitalService.getAppointmentById(id);
         if(appointment == null) {
-            appointment = new AppointmentItem("");
+            appointment = new AppointmentItem();
         }
+        model.addAttribute("doctors", hospitalService.getAllDoctors());
+        model.addAttribute("patients", hospitalService.getAllPatients());
         model.addAttribute("AppointmentItem", appointment);
+
+
         return "add_appointment";
     }
 
     @PostMapping("/addAppointment")
-    public String processPatient(@ModelAttribute("AppointmentItem") AppointmentItem appointment){
+    public String processPatient(@RequestParam(required = false, defaultValue = "-1") String id,  @ModelAttribute("AppointmentItem") AppointmentItem appointment, Model model){
         log.info("add_appointment ={}", appointment);
-        hospitalService.addAppointment(appointment);
+        log.info("appointment id = {}", id);
+
+
+
+        if(appointment.getId() == null) {
+            hospitalService.addAppointment(appointment);
+        }
+        else {
+            hospitalService.updateAppointment(appointment);
+        }
         return  "redirect:/" + "appointments";
     }
 
+
+
+    @GetMapping("/patientsByDoctor")
+    public String patientsByDoctor(@RequestParam(required = false, defaultValue = "-1") String id,   Model model){
+
+        DoctorItem doctorItem  = hospitalService.getDoctor(id);
+
+
+        model.addAttribute("patients", hospitalService.getPatientsByDoctor(doctorItem.getId()));
+        return  "patients_by_doctor";
+    }
 
 
 

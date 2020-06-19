@@ -34,7 +34,7 @@
             <th>Patients</th>
         </tr>
 
-        <tr th:each="doctor: ${doctor}">
+        <tr th:each="doctor: ${doctors}">
             <td th:text="${doctor.id}" />
             <td th:text="${doctor.name}" />
             <td th:text="${doctor.lastname}" />
@@ -45,7 +45,7 @@
             <td th:text="${doctor.address}" />
             <td th:text="${doctor.phone}" />
             <td><a th:href="@{/addDoctor(id=${doctor.id})}">Edit</a></td>
-            <td><a th:href="@{/patientsByDocotor}">Patients</a></td>
+            <td><a th:href="@{/patientsByDoctor(id=${doctor.id})}">Patients</a></td>
 
 
         </tr>

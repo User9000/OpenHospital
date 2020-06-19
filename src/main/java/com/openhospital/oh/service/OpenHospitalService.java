@@ -26,6 +26,7 @@ public class OpenHospitalService implements OpenHospitalServiceInterface {
 
     @Override
     public void populate(){
+        doctorRepository.save(new DoctorItem("John","Wong","686565253"));
         patientRepository.save(new PatientItem("John","Smith","68659563"));
 
         doctorRepository.save(new DoctorItem("John","Wong","686565253"));
@@ -60,7 +61,7 @@ public class OpenHospitalService implements OpenHospitalServiceInterface {
     public PatientItem getPatientById(String id){
         return patientRepository.getPatientItemById(id);
     }
-    public AppointmentItem getAppointmentById(String id){
+    public AppointmentItem getAppointmentById(Long id){
         return appointmentRepository.getAppointmentItemById(id);
     }
 
@@ -71,8 +72,14 @@ public class OpenHospitalService implements OpenHospitalServiceInterface {
     }
 
     public DoctorItem updateDoctor(DoctorItem doctor){
-        doctor.setId(doctor.getId());
+        //doctor.setId(doctor.getId());
       return doctorRepository.save(doctor);
+    }
+
+    public AppointmentItem updateAppointment(AppointmentItem appointment){
+
+           // appointment.setId(appointment.getId());
+        return appointmentRepository.save(appointment);
     }
 
     public List<AppointmentItem> getAllAppointments() {
@@ -129,7 +136,7 @@ public class OpenHospitalService implements OpenHospitalServiceInterface {
 
     public List<PatientItem> getPatientsByDoctor(String doctor){
 
-        DoctorItem doctorItem = doctorRepository.getDoctorItemByPhone(doctor);
+        DoctorItem doctorItem = doctorRepository.getDoctorItemById(doctor);
 
         var patients = patientRepository.getPatientItemByDoctor(doctorItem);
         var pats = new ArrayList<PatientItem>();

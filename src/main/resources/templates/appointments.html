@@ -21,6 +21,8 @@
                 <th>room</th>
                 <th>Doctor</th>
                 <th>Patient</th>
+                <th>Date</th>
+                <th>Symptoms</th>
                 <th>Edit</th>
             </tr>
             <tr th:each="app: ${appointment}">
@@ -28,6 +30,8 @@
                 <td th:text="${app.room}" />
                 <td th:text="${app.doctor?.name}"/>
                 <td th:text="${app.patient?.name}" />
+                <td th:text="${app.date}" />
+                <td th:text="${app.symptoms}" />
                 <td><a th:href="@{/addAppointment(id=${app.id})}">Edit</a></td>
             </tr>
         </table>

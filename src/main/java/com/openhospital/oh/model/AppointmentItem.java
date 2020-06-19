@@ -14,12 +14,12 @@ import java.util.List;
 public class AppointmentItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @OneToOne(    orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private DoctorItem doctor;
-    @OneToOne (orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private PatientItem patient;
 
     private LocalDate date;
@@ -40,16 +40,16 @@ public class AppointmentItem {
         this.room = room;
     }
 
-    public AppointmentItem(String room, String doctorId, String patientId) {
+    public AppointmentItem(String room, DoctorItem doctor, PatientItem patient) {
         this.room = room;
-        this.patient = new PatientItem(patientId, "", "");
-        this.doctor = new DoctorItem(doctorId, "", "");
+        this.patient= patient;
+        this.doctor = doctor;
     }
 
-    public AppointmentItem(String id, DoctorItem doctor, PatientItem patient, LocalDate date, String building, String details, String prescription, String symptoms, String insurance) {
-        this.id = id;
+    public AppointmentItem(DoctorItem doctor, PatientItem patient, LocalDate date, String building, String details, String prescription, String symptoms, String insurance) {
+
         this.doctor = doctor;
-        this.patient = patient;
+        this.patient=patient;
         this.date = date;
         this.building = building;
         this.details = details;

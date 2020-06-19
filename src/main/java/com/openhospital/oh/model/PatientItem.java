@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @Data
 @EqualsAndHashCode(of="id")
-@Entity
+@Entity(name="patients")
 public class PatientItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +39,11 @@ public class PatientItem {
     private String workplace;
     private LocalDate date;
 
-    @ManyToMany(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany
     private List<AppointmentItem> appointments;
 
 
-    @ManyToOne( fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.REFRESH, CascadeType.REMOVE} )
     @ToString.Exclude
     private DoctorItem doctor;
 
@@ -54,18 +54,18 @@ public class PatientItem {
     public PatientItem( String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
-        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
+        //this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
     }
 
     public PatientItem( String id,  String name, String lastname) {
         this.setId(id);
         this.setLastname(lastname);
         this.setName(name);
-        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
+       // this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
     }
 
 
-    public PatientItem(String id, String name, String lastname, String gender, String address, String phone, String email, String age, String weight, String temperature, String height, String DOB, String workplace, LocalDate date, List<AppointmentItem> appointments, DoctorItem doctor) {
+    public PatientItem(String id, String name, String lastname, String gender, String address, String phone, String email, String age, String weight, String temperature, String height, String DOB, String workplace, LocalDate date, List<AppointmentItem> appointments) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -82,10 +82,10 @@ public class PatientItem {
         this.date = date;
         this.appointments = appointments;
 
-        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
+        //this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
     }
 
-    public PatientItem(String id, String name, String lastname, String gender, String address, String zipcode, String city, String state, String country, String phone, String email, String age, String weight, String temperature, String height, String DOB, String workplace, LocalDate date, List<AppointmentItem> appointments, DoctorItem doctor) {
+    public PatientItem(String id, String name, String lastname, String gender, String address, String zipcode, String city, String state, String country, String phone, String email, String age, String weight, String temperature, String height, String DOB, String workplace, LocalDate date, List<AppointmentItem> appointments) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -105,7 +105,7 @@ public class PatientItem {
         this.workplace = workplace;
         this.date = date;
         this.appointments = appointments;
-        this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
+       // this.doctor = new DoctorItem("Juan", "Villanueva", "6464654");
 
     }
 }
